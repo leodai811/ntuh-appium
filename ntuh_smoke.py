@@ -1,4 +1,3 @@
-# ntuh_smoke.py  — 純「找文字→點擊」版
 import subprocess, time
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
@@ -10,8 +9,7 @@ from selenium.common.exceptions import TimeoutException
 APP_PKG = "xfntuh.droid"
 APP_ACT = "crc646309fb9dd9b44dd0.MainActivity"
 
-# 你要點的文字
-REGISTER_LABELS = ["網路掛號", "預約掛號", "門診掛號"]  # 會依序嘗試
+REGISTER_LABELS = ["網路掛號", "預約掛號"] 
 DEPT_NAME = "內科部"
 SUBDEPT_NAME = "胃腸肝膽科"
 
@@ -49,7 +47,6 @@ def click_by_text(driver, wait, label, fuzzy=False, do_scroll=True):
                else f'new UiSelector().text("{label}")')
     el = wait.until(EC.presence_of_element_located(locator))
 
-    # 嘗試點擊本身；不行就點最近的可點擊父節點
     try:
         el.click()
         return True
