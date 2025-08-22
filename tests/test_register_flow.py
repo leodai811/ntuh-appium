@@ -8,9 +8,7 @@ from pages.dept_page import DeptPage
     "dept, subdept",
     [
         ("內科部", "胃腸肝膽科"),
-        # 未來在這裡繼續加別的測項（科別/次專科）
-        # ("內科部", "心臟血管科"),
-        # ("外科部", "一般外科"),
+        ("內科部", "心臟血管科"),
     ]
 )
 def test_register_by_dept(driver, wait, dept, subdept):

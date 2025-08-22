@@ -27,7 +27,7 @@ def pytest_addoption(parser):
     parser.addoption("--activity", action="store", default=DEFAULT_APP_ACT)
     parser.addoption("--timeout", action="store", type=int, default=40)
 
-@pytest.fixture
+@pytest.fixture(scope="function")  # 明確每個測試（每組 param）都新建/銷毀一次
 def driver(request):
     appium_url = request.config.getoption("--appium-url")
     udid = request.config.getoption("--udid") or _get_udid()
@@ -58,25 +58,18 @@ def driver(request):
             drv.start_activity(app_pkg, app_act)
 
     yield drv
-    drv.quit()
+
+    # —— 每個測試結束前「先關 app 再關 session」——
+    try:
+        drv.terminate_app(app_pkg)
+    except Exception:
+        pass
+    try:
+        drv.quit()
+    except Exception:
+        pass
 
 @pytest.fixture
 def wait(request, driver):
     timeout = request.config.getoption("--timeout")
     return WebDriverWait(driver, timeout)
-
-# 失敗自動截圖到 ./artifacts
-@pytest.hookimpl(hookwrapper=True, tryfirst=True)
-def pytest_runtest_makereport(item, call):
-    outcome = yield
-    rep = outcome.get_result()
-    if rep.when == "call" and rep.failed:
-        drv = item.funcargs.get("driver")
-        if drv:
-            os.makedirs("artifacts", exist_ok=True)
-            path = os.path.join("artifacts", f"{item.name}.png")
-            try:
-                drv.save_screenshot(path)
-                item.add_report_section("call", "screenshot", f"Saved: {path}")
-            except Exception:
-                pass
