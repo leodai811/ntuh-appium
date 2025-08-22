@@ -1,0 +1,45 @@
+# --- Python/venv ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# pip / 依賴快取
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# pytest / coverage
+.pytest_cache/
+.cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# 日誌與產物
+*.log
+artifacts/
+reports/
+screenshots/
+recordings/
+
+# 環境變數/本機設定
+.env
+.env.* 
+*.local
+
+# VS Code / 編輯器
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+#（可選）Node 相關（若未來加前端/工具）
+node_modules/
+
+#（可選）Appium Inspector 下載的暫存
+*.tmp
+EOF
