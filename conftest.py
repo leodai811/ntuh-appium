@@ -9,6 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 DEFAULT_APPIUM_URL = os.getenv("APPIUM_URL", "http://127.0.0.1:4723")
 DEFAULT_APP_PKG = os.getenv("APP_PKG", "xfntuh.droid")
 DEFAULT_APP_ACT = os.getenv("APP_ACT", "crc646309fb9dd9b44dd0.MainActivity")
+QUICK_DATE = os.getenv("QUICK_DATE", "09/05")
+QUICK_DOCTOR = os.getenv("QUICK_DOCTOR", "戴瑞廷")
+
 
 def _get_udid():
     try:
